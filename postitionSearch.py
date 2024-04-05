@@ -6,17 +6,18 @@ sift = cv2.SIFT_create()
 bf = cv2.BFMatcher()
 drive.mount('/content/drive')
 
+#path to file with photo with object you want to determine location
 userPhotoPath = '/content/probka4.png'
 userPhoto = cv2.imread(userPhotoPath, cv2.IMREAD_COLOR)
 keypointsUser, descriptorsUser = sift.detectAndCompute(userPhoto, None)
 
-kafelki = []
+tiles = []
 for i in range(32):
   path = f'/content/drive/MyDrive/dane/{i+1}.png'
   photo = cv2.imread(path,cv2.IMREAD_COLOR)
-  kafelki.append([path, photo, 0])
+  tiles.append([path, photo, 0])
 
-for p in kafelki:
+for p in tiles:
   keypoints_p, descriptors_p = sift.detectAndCompute(p[1], None)
   matches = bf.knnMatch(descriptorsUser, descriptors_p, k=2)
 
@@ -27,8 +28,8 @@ for p in kafelki:
   matching_ratio = len(good_matches) / len(keypointsUser)
   p[2] = matching_ratio
 
-sorted_data = sorted(kafelki, key=lambda x: x[2])
-print('najlepszy match:', sorted_data[-1][0], sorted_data[-1][2])
-print('najsłabszy match:', sorted_data[0][0], sorted_data[0][2])
+sorted_data = sorted(tiles, key=lambda x: x[2])
+print('Highest-ratio match:', sorted_data[-1][0], sorted_data[-1][2])
+print('Lowest-ratio match:', sorted_data[0][0], sorted_data[0][2])
 
 
