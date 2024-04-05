@@ -1,4 +1,3 @@
-import cv2
 sift = cv2.SIFT_create()
 bf = cv2.BFMatcher()
 
@@ -8,9 +7,12 @@ def findMatches(photoPath, tilesMap):
 
     for tile in tilesMap:
         keypoints_tile, descriptors_tile = sift.detectAndCompute(tile[1], None)
+        if descriptors_tile is None:
+          continue
         matches = bf.knnMatch(descriptorsUser, descriptors_tile, k=2)
-
         good_matches = []
+        if len(matches[0]) < 2:
+          continue
         for m, n in matches:
             if m.distance < 0.5 * n.distance:
                 good_matches.append(m)
