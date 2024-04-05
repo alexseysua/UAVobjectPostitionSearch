@@ -5,7 +5,7 @@ def loadUserPhotos(folder_path):
   photos = []
   for filename in os.listdir(folder_path):
     if filename.lower().endswith(('.png', '.jpg')):
-      path = f'/content/drive/MyDrive/user_photos_data/{i}'
+      path = f'/content/drive/MyDrive/user_photos_data/{filename}'
       photos.append(path)
   return photos
 
