@@ -1,6 +1,13 @@
 import cv2
 import os
 
+def loadUserPhotos(folder_path):
+  photos = []
+  for i in range(len(os.listdir(folder_path))):
+    path = f'{folder_path}probka{i+1}.png'
+    photos.append(path)
+  return photos
+
 def loadTiles(folder_path):
   tileMap = []
   for i in range(len(os.listdir(folder_path))):
