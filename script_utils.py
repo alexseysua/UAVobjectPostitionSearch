@@ -7,3 +7,14 @@ def loadTiles(folder_path):
     photo = cv2.imread(path,cv2.IMREAD_COLOR)
     tileMap.append([path, photo, 0])
   return tileMap
+
+def printFormattedMatches(result):
+  print(f'''
+  Foto with object: {result['photo_path']}
+  Highest-ratio match: 
+    photo: {result['highest_ratio_match'][0]}
+    ratio: {round(result['highest_ratio_match'][1],3)}
+  Lowest-ratio match:
+    photo: {result['lowest_ratio_match'][0]}
+    ratio: {round(result['lowest_ratio_match'][1],3)}
+        ''')
